@@ -52,6 +52,8 @@ export default {
           "bot-bubble": "hsl(var(--calmio-bot-bubble))",
           "user-bubble": "hsl(var(--calmio-user-bubble))",
           "help-button": "hsl(var(--calmio-help-button))",
+          "chat-yellow": "hsl(var(--calmio-chat-yellow))",
+          "complete-green": "hsl(var(--calmio-complete-green))",
         },
       },
       borderRadius: {
