@@ -2,12 +2,14 @@ import { Heart, Menu, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState } from "react";
+import { useAuth } from "@/auth/useAuth"; // 👈 IMPORTANTE
 
 interface HomeHeaderProps {
   onHelpClick?: () => void;
 }
 
 const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
+  const { user } = useAuth(); // 👈 pega o nome do usuário logado
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
@@ -28,9 +30,30 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
             <div className="w-1 h-3 bg-foreground rounded-full"></div>
             <div className="w-1 h-3.5 bg-foreground rounded-full"></div>
           </div>
-          <svg width="15" height="11" viewBox="0 0 15 11" fill="none" className="ml-1">
-            <rect x="1" y="1" width="13" height="9" rx="2" stroke="currentColor" strokeWidth="1" />
-            <rect x="14.5" y="3.5" width="1" height="4" rx="0.5" fill="currentColor" />
+          <svg
+            width="15"
+            height="11"
+            viewBox="0 0 15 11"
+            fill="none"
+            className="ml-1"
+          >
+            <rect
+              x="1"
+              y="1"
+              width="13"
+              height="9"
+              rx="2"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
+            <rect
+              x="14.5"
+              y="3.5"
+              width="1"
+              height="4"
+              rx="0.5"
+              fill="currentColor"
+            />
           </svg>
         </div>
       </div>
@@ -43,21 +66,25 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
               <User className="h-6 w-6" />
             </AvatarFallback>
           </Avatar>
-          <span className="font-semibold text-foreground text-base">Lucas Martinézi</span>
+
+          {/* 👇 Nome do usuário logado */}
+          <span className="font-semibold text-foreground text-base">
+            {user ?? "Visitante"}
+          </span>
         </div>
 
         <div className="flex items-center gap-3">
-          <Button 
-            variant="secondary" 
+          <Button
+            variant="secondary"
             className="bg-calmio-help-button hover:bg-calmio-help-button/90 text-foreground rounded-full h-10 px-4 gap-2 font-medium"
             onClick={onHelpClick}
           >
             <Heart className="h-4 w-4 fill-current" />
             <span className="text-sm">Ajuda humana</span>
           </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className="h-10 w-10"
             onClick={() => setMenuOpen(!menuOpen)}
           >

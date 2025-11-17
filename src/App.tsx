@@ -8,6 +8,8 @@ import Chat from "./pages/Chat";
 import YogaList from "./pages/YogaList";
 import YogaExercise from "./pages/YogaExercise";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";  // 👈 ADICIONE ISSO
 
 const queryClient = new QueryClient();
 
@@ -18,11 +20,18 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+
+          {/* ROTAS DE AUTENTICAÇÃO */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} /> {/* 👈 NOVO */}
+
+          {/* SUAS ROTAS NORMAIS */}
           <Route path="/" element={<Home />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/yoga" element={<YogaList />} />
           <Route path="/yoga/:id" element={<YogaExercise />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* CATCH-ALL */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
