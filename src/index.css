@@ -9,8 +9,8 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Calmio Design System - Cores suaves e acolhedoras */
-    --background: 45 65% 95%; /* #FBF7E3 - Creme claro geral */
-    --foreground: 0 0% 10%; /* Preto suave para textos */
+    --background: 47 70% 96%; /* #FCF9E8 - Creme claro geral */
+    --foreground: 0 0% 20%; /* Cinza escuro para textos */
 
     --card: 0 0% 100%;
     --card-foreground: 0 0% 10%;
@@ -19,7 +19,7 @@ All colors MUST be HSL.
     --popover-foreground: 0 0% 10%;
 
     --primary: 0 0% 10%;
-    --primary-foreground: 45 65% 95%;
+    --primary-foreground: 47 70% 96%;
 
     --secondary: 45 45% 88%; /* #EFE8D6 - Bege claro do header */
     --secondary-foreground: 0 0% 10%;
@@ -44,6 +44,8 @@ All colors MUST be HSL.
     --calmio-bot-bubble: 50 100% 92%; /* #FFF7D6 */
     --calmio-user-bubble: 50 77% 87%; /* #F7EFC4 */
     --calmio-help-button: 5 56% 80%; /* #E9B0AB */
+    --calmio-chat-yellow: 48 90% 65%; /* #F3D85A - Amarelo pastel */
+    --calmio-complete-green: 77 22% 62%; /* #A8B88C - Verde suave */
   }
 }
 
