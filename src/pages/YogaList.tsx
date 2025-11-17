@@ -16,6 +16,12 @@ const yogaPoses = [
     description: "Pose avançada que trabalha flexibilidade e força...",
     completed: false,
   },
+  {
+    id: 3,
+    title: "Pose da Árvore",
+    description: "Estimula o foco, a concentração e o equilíbrio emocional...",
+    completed: false,
+  },
 ];
 
 const YogaList = () => {
@@ -23,7 +29,7 @@ const YogaList = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      <PageHeader title="Yoga" />
+      <PageHeader title="Yoga" backPath="/home" />
       
       <main className="px-5 py-6 space-y-4 max-w-2xl mx-auto">
         {yogaPoses.map((pose) => (

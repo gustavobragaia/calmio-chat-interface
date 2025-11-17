@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Routine from "./pages/Routine";
 
 import { AuthProvider } from "@/auth/AuthProvider";
 
@@ -38,6 +39,7 @@ const App = () => (
             {/* PÁGINAS */}
             <Route path="/home" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/rotina" element={<Routine />} />
             <Route path="/yoga" element={<YogaList />} />
             <Route path="/yoga/:id" element={<YogaExercise />} />
              <Route path="/stretching" element={<Stretching />} />
