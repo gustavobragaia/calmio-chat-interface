@@ -2,15 +2,29 @@ import HomeHeader from "@/components/HomeHeader";
 import InfoCard from "@/components/InfoCard";
 import ExerciseCard from "@/components/ExerciseCard";
 import FloatingChatButton from "@/components/FloatingChatButton";
+import EmergencyModal from "@/components/EmergencyModal";
+import DailyFeelingModal from "@/components/DailyFeelingModal";
 import { TrendingUp, Clock, Activity, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
+  const [feelingModalOpen, setFeelingModalOpen] = useState(false);
+
+  // Modal automático a cada 1 minuto
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFeelingModalOpen(true);
+    }, 60000); // 60000ms = 1 minuto
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      <HomeHeader />
+      <HomeHeader onHelpClick={() => setEmergencyModalOpen(true)} />
       
       <main className="px-5 py-6 space-y-6 max-w-2xl mx-auto">
         {/* Cards principais */}
@@ -50,6 +64,16 @@ const Home = () => {
       </main>
 
       <FloatingChatButton />
+
+      {/* Modais */}
+      <EmergencyModal 
+        open={emergencyModalOpen} 
+        onOpenChange={setEmergencyModalOpen} 
+      />
+      <DailyFeelingModal 
+        open={feelingModalOpen} 
+        onOpenChange={setFeelingModalOpen} 
+      />
     </div>
   );
 };

@@ -2,11 +2,13 @@ import { Heart, Menu, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-const HomeHeader = () => {
+interface HomeHeaderProps {
+  onHelpClick?: () => void;
+}
+
+const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   const menuItems = [
     { icon: User, label: "Perfil" },
@@ -48,6 +50,7 @@ const HomeHeader = () => {
           <Button 
             variant="secondary" 
             className="bg-calmio-help-button hover:bg-calmio-help-button/90 text-foreground rounded-full h-10 px-4 gap-2 font-medium"
+            onClick={onHelpClick}
           >
             <Heart className="h-4 w-4 fill-current" />
             <span className="text-sm">Ajuda humana</span>

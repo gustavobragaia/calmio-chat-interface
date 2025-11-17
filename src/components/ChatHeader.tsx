@@ -1,8 +1,21 @@
-import { Heart, Menu, User } from "lucide-react";
+import { Heart, Menu, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useState } from "react";
 
-const ChatHeader = () => {
+interface ChatHeaderProps {
+  onHelpClick?: () => void;
+}
+
+const ChatHeader = ({ onHelpClick }: ChatHeaderProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const menuItems = [
+    { icon: User, label: "Perfil" },
+    { icon: Menu, label: "Configurações" },
+    { icon: Menu, label: "Sair" },
+  ];
+
   return (
     <header className="bg-calmio-header px-5 pt-3 pb-4">
       {/* Status Bar iOS simulada */}
@@ -37,15 +50,36 @@ const ChatHeader = () => {
           <Button 
             variant="secondary" 
             className="bg-calmio-help-button hover:bg-calmio-help-button/90 text-foreground rounded-full h-10 px-4 gap-2 font-medium"
+            onClick={onHelpClick}
           >
             <Heart className="h-4 w-4 fill-current" />
             <span className="text-sm">Ajuda humana</span>
           </Button>
-          <Button variant="ghost" size="icon" className="h-10 w-10">
-            <Menu className="h-5 w-5" />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-10 w-10"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>
+
+      {/* Menu dropdown */}
+      {menuOpen && (
+        <div className="mt-4 space-y-2">
+          {menuItems.map((item, index) => (
+            <button
+              key={index}
+              className="w-full flex items-center gap-3 bg-secondary/60 rounded-3xl px-5 py-3 hover:bg-secondary transition-colors"
+            >
+              <item.icon className="h-5 w-5" />
+              <span className="font-medium">{item.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </header>
   );
 };
