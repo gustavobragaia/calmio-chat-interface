@@ -18,9 +18,10 @@ const Login = () => {
 
     // valida login
     if (username === savedUser && password === savedPass) {
-      login(username);       // salva nome no AuthContext
-      navigate("/");         // envia para home
-    } else {
+  login(username);
+  navigate("/home");   // 👈 AGORA VAI PARA A HOME CERTA
+}
+ else {
       alert("Usuário ou senha incorretos!");
     }
   };
