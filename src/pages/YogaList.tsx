@@ -16,6 +16,12 @@ const yogaPoses = [
     description: "Pose avançada que trabalha flexibilidade e força...",
     completed: false,
   },
+  {
+    id: 3,
+    title: "Pose da Árvore",
+    description: "Estimula o foco, a concentração e o equilíbrio emocional...",
+    completed: false,
+  },
 ];
 
 const YogaList = () => {
