@@ -36,7 +36,7 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
   const menuItems = [
     { icon: User, label: "Perfil" },
     { icon: Settings, label: "Configurações" },
-    { icon: X, label: "Sair" }, // Ícone de logout
+    { icon: X, label: "Sair" }, 
   ];
 
   return (
