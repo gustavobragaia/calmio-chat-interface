@@ -1,16 +1,36 @@
 import { Heart, Menu, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useState } from "react";
-import { useAuth } from "@/auth/useAuth"; // 👈 IMPORTANTE
+import { useState, useEffect } from "react";
+import { useAuth } from "@/auth/useAuth";
 
 interface HomeHeaderProps {
   onHelpClick?: () => void;
 }
 
 const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
-  const { user } = useAuth(); // 👈 pega o nome do usuário logado
+  const { user } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // 🕒 ESTADO DO HORÁRIO
+  const [time, setTime] = useState("");
+
+  // 🕒 ATUALIZA O HORÁRIO EM TEMPO REAL
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const formatted = now.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      setTime(formatted);
+    };
+
+    tick(); // atualiza imediatamente
+    const interval = setInterval(tick, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const menuItems = [
     { icon: User, label: "Perfil" },
@@ -20,9 +40,11 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
 
   return (
     <header className="bg-calmio-header px-5 pt-3 pb-4">
-      {/* Status Bar iOS simulada */}
+      
+      {/* Status Bar iOS com horário real */}
       <div className="flex items-center justify-between text-xs font-medium text-foreground mb-3">
-        <span>9:41</span>
+        <span>{time}</span>
+
         <div className="flex items-center gap-1">
           <div className="flex gap-0.5">
             <div className="w-1 h-2 bg-foreground rounded-full"></div>
@@ -58,7 +80,7 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
         </div>
       </div>
 
-      {/* Linha principal do header */}
+      {/* Linha principal */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12">
@@ -67,7 +89,6 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
             </AvatarFallback>
           </Avatar>
 
-          {/* 👇 Nome do usuário logado */}
           <span className="font-semibold text-foreground text-base">
             {user ?? "Visitante"}
           </span>
@@ -107,6 +128,7 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
           ))}
         </div>
       )}
+
     </header>
   );
 };

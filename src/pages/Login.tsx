@@ -31,20 +31,24 @@ const Login = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
-          type="text"
-          placeholder="Usuário"
-          className="border p-2 rounded w-full"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+  type="text"
+  placeholder="Digite seu usuário"
+  className="border p-2 rounded w-full"
+  value={username}
+  onChange={(e) => setUsername(e.target.value)}
+  autoComplete="off"
+  name="username"
+/>
 
-        <input
-          type="password"
-          placeholder="Senha"
-          className="border p-2 rounded w-full"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+<input
+  type="password"
+  placeholder="Digite sua senha"
+  className="border p-2 rounded w-full"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  autoComplete="new-password"
+  name="password"
+/>
 
         <button
           type="submit"
