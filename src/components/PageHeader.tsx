@@ -21,17 +21,19 @@ const PageHeader = ({ title, onBack }: PageHeaderProps) => {
   return (
     <header className="bg-calmio-header px-5 py-4">
       <div className="flex items-center justify-between">
-        <Button 
-          variant="ghost" 
-          size="icon" 
+        <Button
+          variant="ghost"
+          size="icon"
           className="h-10 w-10"
           onClick={handleBack}
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
-        
-        <h1 className="font-semibold text-foreground text-lg">{title}</h1>
-        
+
+        <h1 className="font-semibold text-foreground text-lg">
+          {title}
+        </h1>
+
         <Button variant="ghost" size="icon" className="h-10 w-10">
           <Menu className="h-5 w-5" />
         </Button>

@@ -13,6 +13,8 @@ import YogaExercise from "./pages/YogaExercise";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Stretching from "./pages/Stretching";
+
 
 const queryClient = new QueryClient();
 
@@ -38,6 +40,7 @@ const App = () => (
             <Route path="/chat" element={<Chat />} />
             <Route path="/yoga" element={<YogaList />} />
             <Route path="/yoga/:id" element={<YogaExercise />} />
+             <Route path="/stretching" element={<Stretching />} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
