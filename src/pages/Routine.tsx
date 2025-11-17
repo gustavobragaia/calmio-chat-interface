@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Trash2, Plus, CheckCircle2, Circle, AlertTriangle, PartyPopper, Trophy } from "lucide-react";
 import { useAuth } from "@/auth/useAuth";
+
 
 interface Hábito {
   id: number;
@@ -86,7 +87,8 @@ const Routine = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24 relative">
-      <PageHeader title="Minha Rotina" backPath="/home" />
+      <Header title="Minha Rotina" />
+
 
       <main className="px-5 py-6 max-w-2xl mx-auto space-y-8">
         

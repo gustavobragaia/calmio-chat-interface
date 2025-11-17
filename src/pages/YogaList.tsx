@@ -1,4 +1,4 @@
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import YogaPoseCard from "@/components/YogaPoseCard";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import { useNavigate } from "react-router-dom";
@@ -29,8 +29,10 @@ const YogaList = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      <PageHeader title="Yoga" backPath="/home" />
       
+      {/* Usa seu Header top */}
+      <Header title="Yoga" />
+
       <main className="px-5 py-6 space-y-4 max-w-2xl mx-auto">
         {yogaPoses.map((pose) => (
           <YogaPoseCard
