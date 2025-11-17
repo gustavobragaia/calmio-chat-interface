@@ -6,6 +6,7 @@ interface InfoCardProps {
   title: string;
   subtitle: string;
   onClick?: () => void;
+  className?: string;
 }
 
 const InfoCard = ({ icon: Icon, title, subtitle, onClick }: InfoCardProps) => {

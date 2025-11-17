@@ -36,6 +36,19 @@ const exercisesData: Record<string, YogaPoseData> = {
       "Mantenha a posição por 5-10 respirações profundas.",
       "Retorne lentamente à posição inicial e repita do outro lado."
     ]
+  },
+  "3": {
+    title: "Pose da Árvore",
+    description: "A Vrksasana, ou Pose da Árvore, traz estabilidade e enraizamento. Ela nos ensina a manter a calma e o equilíbrio mesmo quando o mundo ao redor parece instável.",
+    details: "Além de fortalecer as pernas e o core, esta postura ajuda a limpar a mente, exigindo foco total no momento presente para não cair.",
+    steps: [
+      "Comece em pé na postura da montanha (Tadasana), com os pés firmes no chão.",
+      "Transfira o peso para a perna esquerda e levante o pé direito.",
+      "Apoie a planta do pé direito na parte interna da coxa esquerda (ou na panturrilha, nunca no joelho).",
+      "Junte as palmas das mãos em frente ao peito em posição de prece.",
+      "Fixe o olhar em um ponto imóvel à sua frente para manter o equilíbrio.",
+      "Respire profundamente por 5 a 10 ciclos e depois troque o lado."
+    ]
   }
 };
 

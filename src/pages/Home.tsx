@@ -33,6 +33,7 @@ const Home = () => {
             icon={TrendingUp}
             title="Construindo uma rotina"
             subtitle="Veja seu progresso"
+            onClick={() => navigate("/rotina")}
           />
           <InfoCard
             icon={Clock}
