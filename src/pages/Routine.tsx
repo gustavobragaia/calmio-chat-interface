@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // 1. Importe useEffect
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,22 +10,40 @@ interface Hábito {
   concluido: boolean;
 }
 
+// Lista padrão para quando o usuário entra pela PRIMEIRA vez
+const habitosIniciais: Hábito[] = [
+  { id: 1, titulo: "Beber 2L de Água", concluido: false },
+  { id: 2, titulo: "Atividade Física", concluido: false },
+  { id: 3, titulo: "Estudo", concluido: false },
+];
+
 const Routine = () => {
-  // Estado inicial com os padrões que você pediu
-  const [habitos, setHabitos] = useState<Hábito[]>([
-    { id: 1, titulo: "Beber 2L de Água", concluido: false },
-    { id: 2, titulo: "Atividade Física", concluido: false },
-    { id: 3, titulo: "Estudo", concluido: false },
-  ]);
+  // 2. Inicialização Inteligente do Estado
+  const [habitos, setHabitos] = useState<Hábito[]>(() => {
+    // Tenta pegar do banco local
+    const salvos = localStorage.getItem("calmio_rotina_user");
+    
+    // Se existir, converte de texto para objeto e usa
+    if (salvos) {
+      return JSON.parse(salvos);
+    }
+    
+    // Se não existir (primeira vez), usa a lista padrão
+    return habitosIniciais;
+  });
 
   const [novoHabito, setNovoHabito] = useState("");
 
-  // --- A FÓRMULA MÁGICA ---
+  // 3. O "Salvamemto Automático"
+  // Toda vez que a variável 'habitos' mudar, esse código roda e salva
+  useEffect(() => {
+    localStorage.setItem("calmio_rotina_user", JSON.stringify(habitos));
+  }, [habitos]);
+
   const total = habitos.length;
   const concluidos = habitos.filter((h) => h.concluido).length;
   const porcentagem = total === 0 ? 0 : Math.round((concluidos / total) * 100);
 
-  // Funções de interação
   const toggleHabito = (id: number) => {
     setHabitos(habitos.map(h => 
       h.id === id ? { ...h, concluido: !h.concluido } : h
@@ -40,13 +58,13 @@ const Routine = () => {
     if (novoHabito.trim() === "") return;
     
     const novoItem = {
-      id: Date.now(), // Gera um ID único baseado no tempo
+      id: Date.now(),
       titulo: novoHabito,
       concluido: false
     };
     
     setHabitos([...habitos, novoItem]);
-    setNovoHabito(""); // Limpa o input
+    setNovoHabito("");
   };
 
   return (
@@ -55,10 +73,9 @@ const Routine = () => {
 
       <main className="px-5 py-6 max-w-2xl mx-auto space-y-8">
         
-        {/* 1. GRÁFICO DE PROGRESSO CIRCULAR */}
+        {/* GRÁFICO DE PROGRESSO */}
         <div className="flex flex-col items-center justify-center bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
           <div className="relative w-40 h-40">
-            {/* Círculo de fundo (cinza) */}
             <svg className="w-full h-full transform -rotate-90">
               <circle
                 cx="80"
@@ -69,7 +86,6 @@ const Routine = () => {
                 fill="transparent"
                 className="text-gray-100"
               />
-              {/* Círculo de progresso (verde) */}
               <circle
                 cx="80"
                 cy="80"
@@ -77,14 +93,14 @@ const Routine = () => {
                 stroke="currentColor"
                 strokeWidth="12"
                 fill="transparent"
-                strokeDasharray={440} // Circunferência aprox (2 * pi * r)
+                strokeDasharray={440}
                 strokeDashoffset={440 - (440 * porcentagem) / 100}
-                className="text-calmio-complete-green transition-all duration-1000 ease-out"
+                // Cor amarela forçada com HEX
+                className="text-[#FACC15] transition-all duration-1000 ease-out"
                 strokeLinecap="round"
               />
             </svg>
             
-            {/* Texto no meio */}
             <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-foreground">
               <span className="text-3xl font-bold">{porcentagem}%</span>
               <span className="text-sm text-muted-foreground font-medium">Concluído</span>
@@ -96,7 +112,7 @@ const Routine = () => {
           </p>
         </div>
 
-        {/* 2. LISTA DE HÁBITOS */}
+        {/* LISTA DE HÁBITOS */}
         <div className="space-y-3">
           <h2 className="font-semibold text-lg">Checklist Diário</h2>
           
@@ -105,7 +121,8 @@ const Routine = () => {
               key={habito.id} 
               className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${
                 habito.concluido 
-                  ? "bg-calmio-complete-green/20 border-calmio-complete-green/30" 
+                  // Amarelo no fundo e borda quando concluído
+                  ? "bg-[#FACC15]/20 border-[#FACC15]/50" 
                   : "bg-white border-gray-100"
               }`}
             >
@@ -114,7 +131,8 @@ const Routine = () => {
                 onClick={() => toggleHabito(habito.id)}
               >
                 {habito.concluido ? (
-                  <CheckCircle2 className="text-calmio-complete-green h-6 w-6" />
+                  // Ícone Amarelo
+                  <CheckCircle2 className="text-[#FACC15] h-6 w-6" />
                 ) : (
                   <Circle className="text-gray-300 h-6 w-6" />
                 )}
@@ -133,7 +151,7 @@ const Routine = () => {
           ))}
         </div>
 
-        {/* 3. ADICIONAR NOVO */}
+        {/* ADICIONAR NOVO */}
         <div className="pt-4 border-t">
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Adicionar novo hábito</h3>
           <div className="flex gap-2">
