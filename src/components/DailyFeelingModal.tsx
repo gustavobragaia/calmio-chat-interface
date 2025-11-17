@@ -18,23 +18,27 @@ const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-calmio-bot-bubble border-none max-w-lg rounded-[30px] p-8 space-y-8">
-        {/* Botão fechar */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute right-4 top-4 rounded-full hover:bg-background/50"
-          onClick={() => onOpenChange(false)}
-        >
-          <X className="h-5 w-5" />
-        </Button>
+        <DialogContent
+  className="bg-calmio-bot-bubble border-none max-w-lg rounded-[30px] p-8 space-y-8 [&>button]:hidden"
+>
+
 
         {/* Título */}
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-foreground">
-            Como você se sente hoje?
-          </h2>
-        </div>
+        <div className="flex items-center justify-between">
+  <h2 className="text-2xl font-bold text-foreground mx-auto">
+    Como você se sente hoje?
+  </h2>
+
+  <Button
+    variant="ghost"
+    size="icon"
+    className="rounded-full hover:bg-background/50 ml-4"
+    onClick={() => onOpenChange(false)}
+  >
+    <X className="h-6 w-6" />
+  </Button>
+</div>
+
 
         {/* Linha de emojis */}
         <div className="flex justify-between px-2">

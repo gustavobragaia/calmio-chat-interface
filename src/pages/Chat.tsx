@@ -1,30 +1,35 @@
-import ChatHeader from "@/components/ChatHeader";
+import HomeHeader from "@/components/HomeHeader";
 import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 import EmergencyModal from "@/components/EmergencyModal";
 import { useState } from "react";
+import { useAuth } from "@/auth/useAuth";   // 👈 IMPORTANTE
 
 const Chat = () => {
   const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
+
+  const { user } = useAuth();                // 👈 pega o usuário logado
+  const username = user ?? "visitante";      // 👈 evita erro caso esteja null
+
   const messages = [
     {
-      text: "Olá Lucas. Eu sou o chatbot do Calmio e estou aqui para te ajudar com suas emoções.\nIsso não é uma terapia, apenas uma IA treinada com a supervisão de psicólogos.\nNosso aplicativo não menospreza a importância de um profissional.",
+      text: `Olá ${username}! Eu sou o chatbot do Calmio e estou aqui para te ajudar com suas emoções.
+Isso não é uma terapia, apenas uma IA treinada com supervisão de psicólogos.
+Nosso aplicativo não substitui um profissional.`,
       isBot: true,
     },
     {
       text: "Como você está se sentindo hoje?",
       isBot: true,
     },
-    {
-      text: "Estou me sentindo ansioso, pois a prova de IHC está chegando e eu não me sinto preparado, embora tenha estudado bastante.",
-      isBot: false,
-    },
   ];
 
   return (
     <div className="flex flex-col h-screen bg-background">
-      <ChatHeader onHelpClick={() => setEmergencyModalOpen(true)} />
       
+      {/* Header */}
+      <HomeHeader onHelpClick={() => setEmergencyModalOpen(true)} />
+
       <main className="flex-1 overflow-y-auto px-5 py-8 pb-32 space-y-6">
         <div className="max-w-2xl mx-auto space-y-5">
           {messages.map((message, index) => (
