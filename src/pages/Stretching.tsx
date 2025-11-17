@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/auth/useAuth"; 
 
 const Stretching = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();              
 
-  // Carrega do localStorage ou começa com 10 minutos
+  const timerKey = `stretching_timer_${user}`;
+
   const [seconds, setSeconds] = useState(() => {
-    const saved = localStorage.getItem("stretching_timer");
+    const saved = localStorage.getItem(timerKey);   
     return saved ? parseInt(saved, 10) : 10 * 60;
   });
 
-  // Atualiza timer a cada segundo
   useEffect(() => {
     if (seconds <= 0) return;
 
@@ -23,12 +25,10 @@ const Stretching = () => {
     return () => clearInterval(interval);
   }, [seconds]);
 
-  // Salva no localStorage sempre que mudar
   useEffect(() => {
-    localStorage.setItem("stretching_timer", seconds.toString());
-  }, [seconds]);
+    localStorage.setItem(timerKey, seconds.toString());
+  }, [seconds, timerKey]);
 
-  // Formata para 00:00
   const formatTime = () => {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -37,7 +37,7 @@ const Stretching = () => {
 
   return (
     <div className="min-h-screen bg-background pb-8">
-      <PageHeader title="Alongamento" />
+      <Header title="Alongamento" />
 
       <main className="m-32 py-12 px-5 max-w-64 mx-auto text-center space-y-6 border-2 border-black outline outline-4 outline-black/20 rounded-3xl shadow-md">
         <h2 className="text-xl font-semibold text-foreground">
@@ -56,8 +56,8 @@ const Stretching = () => {
           <Button
             className="w-full bg-calmio-complete-green hover:bg-calmio-complete-green/90 text-foreground rounded-full h-12 text-base font-semibold"
             onClick={() => {
-              localStorage.removeItem("stretching_timer"); // limpa ao terminar
-              navigate("/");
+              localStorage.removeItem(timerKey); 
+              navigate("/home");
             }}
           >
             Concluir
