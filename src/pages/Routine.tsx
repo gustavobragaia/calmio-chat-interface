@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Trash2, Plus, CheckCircle2, Circle, AlertTriangle, PartyPopper, Trophy } from "lucide-react";
+import { useAuth } from "@/auth/useAuth";
 
 interface Hábito {
   id: number;
@@ -16,23 +17,24 @@ const habitosIniciais: Hábito[] = [
   { id: 3, titulo: "Estudo", concluido: false },
 ];
 
+
 const Routine = () => {
+  const { user } = useAuth();
+  const rotinaKey = `calmio_rotina_${user}`;
+
   const [habitos, setHabitos] = useState<Hábito[]>(() => {
-    const salvos = localStorage.getItem("calmio_rotina_user");
+    const salvos = localStorage.getItem(rotinaKey);
     return salvos ? JSON.parse(salvos) : habitosIniciais;
   });
 
   const [novoHabito, setNovoHabito] = useState("");
-  
-  // Estado para deletar (modal de perigo)
   const [itemParaDeletar, setItemParaDeletar] = useState<number | null>(null);
-  
-  // NOVO: Estado para celebração (modal de festa)
   const [showCelebration, setShowCelebration] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("calmio_rotina_user", JSON.stringify(habitos));
-  }, [habitos]);
+    localStorage.setItem(rotinaKey, JSON.stringify(habitos));
+  }, [habitos, rotinaKey]);
+
 
   const total = habitos.length;
   const concluidos = habitos.filter((h) => h.concluido).length;
