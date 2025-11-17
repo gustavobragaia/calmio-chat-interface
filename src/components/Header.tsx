@@ -1,4 +1,4 @@
-import { Heart, Menu, User, X, Settings, ArrowLeft } from "lucide-react";
+import { Heart, Menu, User, X, Settings, ArrowLeft, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
@@ -37,7 +37,7 @@ const HomeHeader = ({ onHelpClick, title }: HomeHeaderProps) => {
   const menuItems = [
     { icon: User, label: "Perfil" },
     { icon: Settings, label: "Configurações" },
-    { icon: X, label: "Sair" }, 
+    { icon: LogOut, label: "Sair" }, 
   ];
 
   return (

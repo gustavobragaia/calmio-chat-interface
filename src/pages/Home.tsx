@@ -13,11 +13,10 @@ const Home = () => {
   const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
   const [feelingModalOpen, setFeelingModalOpen] = useState(false);
 
-  // Modal automático a cada 1 minuto
   useEffect(() => {
     const timer = setInterval(() => {
       setFeelingModalOpen(true);
-    }, 60000); // 60000ms = 1 minuto
+    }, 3600000); 
 
     return () => clearInterval(timer);
   }, []);
