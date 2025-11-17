@@ -26,7 +26,7 @@ const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
         {/* Título */}
         <div className="flex items-center justify-between">
   <h2 className="text-2xl font-bold text-foreground mx-auto">
-    Como você se sente hoje?
+    Como você se sente agora?
   </h2>
 
   <Button

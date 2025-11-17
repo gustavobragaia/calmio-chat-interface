@@ -2,6 +2,11 @@ import { useState } from "react";
 import { useAuth } from "@/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 
+interface User {
+  username: string;
+  password: string;
+}
+
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -12,16 +17,18 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // pega dados cadastrados
-    const savedUser = localStorage.getItem("registeredUser");
-    const savedPass = localStorage.getItem("registeredPassword");
+    // pega todos os usuários cadastrados
+    const users: User[] = JSON.parse(localStorage.getItem("calmio_users") || "[]");
 
-    // valida login
-    if (username === savedUser && password === savedPass) {
-  login(username);
-  navigate("/home");   // 👈 AGORA VAI PARA A HOME CERTA
-}
- else {
+    // procura usuário correspondente
+    const found = users.find(
+      (u) => u.username === username && u.password === password
+    );
+
+    if (found) {
+      login(username);
+      navigate("/home");
+    } else {
       alert("Usuário ou senha incorretos!");
     }
   };
@@ -31,25 +38,24 @@ const Login = () => {
       <h1 className="text-2xl font-bold mb-4">Login</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-  type="text"
-  placeholder="Digite seu usuário"
-  className="border p-2 rounded w-full"
-  value={username}
-  onChange={(e) => setUsername(e.target.value)}
-  autoComplete="off"
-  name="username"
-/>
 
-<input
-  type="password"
-  placeholder="Digite sua senha"
-  className="border p-2 rounded w-full"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  autoComplete="new-password"
-  name="password"
-/>
+        <input
+          type="text"
+          placeholder="Digite seu usuário"
+          className="border p-2 rounded w-full"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          autoComplete="off"
+        />
+
+        <input
+          type="password"
+          placeholder="Digite sua senha"
+          className="border p-2 rounded w-full"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="new-password"
+        />
 
         <button
           type="submit"
