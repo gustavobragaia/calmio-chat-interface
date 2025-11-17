@@ -1,4 +1,4 @@
-import { Heart, Menu, User, X, Settings } from "lucide-react";
+import { Heart, Menu, User, X, Settings, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
@@ -6,10 +6,11 @@ import { useAuth } from "@/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 
 interface HomeHeaderProps {
+    title: string; 
   onHelpClick?: () => void;
 }
 
-const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
+const HomeHeader = ({ onHelpClick, title }: HomeHeaderProps) => {
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [time, setTime] = useState("");
@@ -85,14 +86,18 @@ const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
       {/* Header principal */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <Avatar className="h-12 w-12 cursor-pointer">
-            <AvatarFallback className="bg-background">
-              <User className="h-6 w-6" />
-            </AvatarFallback>
-          </Avatar>
+          <Avatar
+  className="h-12 w-12 cursor-pointer"
+  onClick={() => navigate("/home")}
+>
+  <AvatarFallback className="bg-background flex items-center justify-center">
+    <ArrowLeft className="h-6 w-6" />
+  </AvatarFallback>
+</Avatar>
 
-          <span className="font-semibold text-foreground text-base">
-            {user ?? "Visitante"}
+
+          <span className="font-semibold text-foreground text-lg">
+                {title}
           </span>
         </div>
 

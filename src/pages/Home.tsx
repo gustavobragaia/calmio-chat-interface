@@ -50,10 +50,12 @@ const Home = () => {
           
           <div className="space-y-4">
             <ExerciseCard
-              icon={Activity}
-              title="Alongamento relaxante"
-              duration="10min – 30min"
-            />
+  icon={Activity}
+  title="Alongamento"
+  duration="10min"
+  onClick={() => navigate("/stretching")}  
+/>
+
             <ExerciseCard
               icon={Heart}
               title="Yoga"
