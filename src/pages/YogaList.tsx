@@ -23,7 +23,7 @@ const YogaList = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      <PageHeader title="Yoga" />
+      <PageHeader title="Yoga" backPath="/home" />
       
       <main className="px-5 py-6 space-y-4 max-w-2xl mx-auto">
         {yogaPoses.map((pose) => (
