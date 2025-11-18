@@ -15,10 +15,9 @@ const Home = () => {
   const [feelingModalOpen, setFeelingModalOpen] = useState(false);
 
   useEffect(() => {
-    const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+    const today = new Date().toISOString().slice(0, 10); 
     const last = getLastDailyFeelingDate();
 
-    // Se ainda não registrou o sentimento hoje, abre o modal
     if (last !== today) {
       setFeelingModalOpen(true);
     }

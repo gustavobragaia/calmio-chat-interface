@@ -1,23 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react"; // Ou o ícone que você usa
+import { ArrowLeft } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
 
-// 1. Adicione o backPath na interface (o ? significa que é opcional)
 interface PageHeaderProps {
   title: string;
   backPath?: string; 
 }
 
-// 2. Receba o backPath nas props
 const PageHeader = ({ title, backPath }: PageHeaderProps) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
     if (backPath) {
-      // Se tiver um caminho específico (ex: ir pra home), vai pra ele
       navigate(backPath);
     } else {
-      // Se não, apenas volta uma casa no histórico (comportamento padrão)
       navigate(-1);
     }
   };
@@ -27,7 +23,7 @@ const PageHeader = ({ title, backPath }: PageHeaderProps) => {
       <Button 
         variant="ghost" 
         size="icon" 
-        onClick={handleBack} // Usa nossa nova função
+        onClick={handleBack} 
         className="mr-2"
       >
         <ArrowLeft className="h-6 w-6" />

@@ -30,7 +30,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
 
-            {/* 🔥 ABRIR O SITE → IR PARA /login */}
+            {/* ABRIR O SITE → IR PARA /login */}
             <Route path="/" element={<Navigate to="/login" replace />} />
 
             {/* PÚBLICAS */}

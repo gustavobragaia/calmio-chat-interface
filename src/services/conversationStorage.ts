@@ -2,7 +2,7 @@ export type StoredMessage = {
   id: string;
   text: string;
   isBot: boolean;
-  timestamp: string; // ISO
+  timestamp: string; 
 };
 
 export type Conversation = {
@@ -34,7 +34,6 @@ function saveConversations(conversations: Conversation[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(conversations));
 }
 
-// cria uma nova conversa (podendo já vir com mensagens iniciais)
 export function createConversation(
   initialMessages: { text: string; isBot: boolean }[] = []
 ): Conversation {
@@ -52,13 +51,12 @@ export function createConversation(
   };
 
   const conversations = loadConversations();
-  conversations.unshift(conv); // mais recente no topo
+  conversations.unshift(conv); 
   saveConversations(conversations);
 
   return conv;
 }
 
-// adiciona mensagens numa conversa existente
 export function appendMessagesToConversation(
   conversationId: string,
   newMessages: { text: string; isBot: boolean }[]
@@ -84,17 +82,14 @@ export function appendMessagesToConversation(
   };
 
   conversations[idx] = updated;
-  // reordenar: conversa atual vai pro topo
   conversations.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
   saveConversations(conversations);
 }
 
-// pega todas as conversas (para a tela de histórico)
 export function getConversations(): Conversation[] {
   return loadConversations();
 }
 
-// pega uma conversa específica pelo id (para reabrir)
 export function getConversationById(id: string): Conversation | undefined {
   return loadConversations().find((c) => c.id === id);
 }
