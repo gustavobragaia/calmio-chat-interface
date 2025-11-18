@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Stretching from "./pages/Stretching";
+import History from "./pages/History";
 
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/home" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/rotina" element={<Routine />} />
+            <Route path="/historico" element={<History />} />
             <Route path="/yoga" element={<YogaList />} />
             <Route path="/yoga/:id" element={<YogaExercise />} />
              <Route path="/stretching" element={<Stretching />} />

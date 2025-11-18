@@ -7,6 +7,7 @@ import DailyFeelingModal from "@/components/DailyFeelingModal";
 import { TrendingUp, Clock, Activity, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { getLastDailyFeelingDate } from "@/services/dailyFeelingStorage";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,11 +15,13 @@ const Home = () => {
   const [feelingModalOpen, setFeelingModalOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setFeelingModalOpen(true);
-    }, 3600000); 
+    const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+    const last = getLastDailyFeelingDate();
 
-    return () => clearInterval(timer);
+    // Se ainda não registrou o sentimento hoje, abre o modal
+    if (last !== today) {
+      setFeelingModalOpen(true);
+    }
   }, []);
 
   return (
@@ -38,6 +41,7 @@ const Home = () => {
             icon={Clock}
             title="Diário de conversas"
             subtitle="Veja seu histórico"
+            onClick={() => navigate("/historico")}
           />
         </div>
 
@@ -49,11 +53,11 @@ const Home = () => {
           
           <div className="space-y-4">
             <ExerciseCard
-  icon={Activity}
-  title="Alongamento"
-  duration="10min"
-  onClick={() => navigate("/stretching")}  
-/>
+              icon={Activity}
+              title="Alongamento"
+              duration="10min"
+              onClick={() => navigate("/stretching")}  
+            />
 
             <ExerciseCard
               icon={Heart}
