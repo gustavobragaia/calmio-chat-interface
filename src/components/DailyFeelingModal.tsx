@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { saveDailyFeelingForToday } from "@/services/dailyFeelingStorage";
 
 interface DailyFeelingModalProps {
   open: boolean;
@@ -18,27 +19,24 @@ const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent
-  className="bg-calmio-bot-bubble border-none max-w-lg rounded-[30px] p-8 space-y-8 [&>button]:hidden"
->
-
-
+      <DialogContent
+        className="bg-calmio-bot-bubble border-none max-w-lg rounded-[30px] p-8 space-y-8"
+      >
         {/* Título */}
         <div className="flex items-center justify-between">
-  <h2 className="text-2xl font-bold text-foreground mx-auto">
-    Como você se sente agora?
-  </h2>
+          <h2 className="text-2xl font-bold text-foreground mx-auto">
+            Como você se sente agora?
+          </h2>
 
-  <Button
-    variant="ghost"
-    size="icon"
-    className="rounded-full hover:bg-background/50 ml-4"
-    onClick={() => onOpenChange(false)}
-  >
-    <X className="h-6 w-6" />
-  </Button>
-</div>
-
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full hover:bg-background/50 ml-4"
+            onClick={() => onOpenChange(false)}
+          >
+            <X className="h-6 w-6" />
+          </Button>
+        </div>
 
         {/* Linha de emojis */}
         <div className="flex justify-between px-2">
@@ -84,8 +82,8 @@ const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
         <Button
           className="w-full bg-calmio-chat-yellow hover:bg-calmio-chat-yellow/90 text-foreground rounded-full h-12 font-semibold"
           onClick={() => {
-            // Aqui você pode salvar os dados
-            console.log("Feeling:", feeling[0], "Thoughts:", thoughts);
+            const mood = emojis[feeling[0]] ?? "😐";
+            saveDailyFeelingForToday(mood, thoughts.trim() || undefined);
             onOpenChange(false);
           }}
         >
