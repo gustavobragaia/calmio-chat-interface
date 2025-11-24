@@ -22,7 +22,6 @@ const Home = () => {
     const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
     const last = getLastDailyFeelingDate(username);
 
-    // Se ainda não registrou o sentimento hoje, abre o modal
     if (last !== today) {
       setFeelingModalOpen(true);
     }

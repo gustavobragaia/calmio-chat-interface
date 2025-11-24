@@ -15,22 +15,17 @@ const Register = () => {
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // pega todos os usuários cadastrados
     const users: User[] = JSON.parse(localStorage.getItem("calmio_users") || "[]");
 
-    // verifica se já existe
     if (users.some((u) => u.username === username)) {
       alert("Este usuário já existe!");
       return;
     }
 
-    // cria novo usuário
     const novoUsuario: User = { username, password };
 
-    // adiciona ao array
     const updatedUsers = [...users, novoUsuario];
 
-    // salva novamente
     localStorage.setItem("calmio_users", JSON.stringify(updatedUsers));
 
     alert("Conta criada com sucesso!");

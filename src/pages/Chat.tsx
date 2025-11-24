@@ -31,7 +31,6 @@ const Chat = () => {
   useEffect(() => {
     const fromUrl = searchParams.get("conversationId");
 
-    // Se veio um ID pela URL, tenta carregar essa conversa
     if (fromUrl) {
       const existing = getConversationById(fromUrl);
       if (existing) {
@@ -46,7 +45,6 @@ const Chat = () => {
       }
     }
 
-    // Caso contrário, cria uma nova conversa com as mensagens iniciais
     const initialMessages: Message[] = [
       {
         text: `Olá ${username}! Eu sou o chatbot do Calmio e estou aqui para te ajudar com suas emoções.
@@ -74,10 +72,8 @@ Nosso aplicativo não substitui um profissional.`,
       isBot: false,
     };
 
-    // Atualiza UI
     setMessages((prev) => [...prev, userMsg]);
 
-    // Persiste no histórico, se já tivermos um ID de conversa
     if (conversationId) {
       appendMessagesToConversation(conversationId, [userMsg]);
     }
@@ -134,7 +130,7 @@ Nosso aplicativo não substitui um profissional.`,
           {isLoading && (
             <ChatMessage
               isBot={true}
-              isTyping={true} // aqueles três pontinhos
+              isTyping={true} 
             />
           )}
         </div>

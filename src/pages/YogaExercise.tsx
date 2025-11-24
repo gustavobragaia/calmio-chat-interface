@@ -9,7 +9,6 @@ interface YogaPoseData {
   details: string;
   steps: string[];
 }
-// 1. Criamos um objeto com os dados de cada exercício
 const exercisesData: Record<string, YogaPoseData> = {
   "1": {
     title: "Pose braços de águia",
@@ -56,20 +55,16 @@ const YogaExercise = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // 2. Buscamos o exercício atual baseado no ID da URL
-  // Se o id for undefined ou não existir, usamos um fallback (opcional)
   const exercise = id ? exercisesData[id] : null;
 
   const handleComplete = () => {
     navigate("/yoga");
   };
 
-  // Tratamento de erro simples se não achar o ID
   if (!exercise) return <div className="p-8">Exercício não encontrado.</div>;
 
   return (
     <div className="min-h-screen bg-background pb-8">
-      {/* 3. Trocamos o texto fixo pelas variáveis do objeto 'exercise' */}
       <PageHeader title={exercise.title} />
       
       <main className="px-5 py-8 space-y-6 max-w-2xl mx-auto">
@@ -93,7 +88,6 @@ const YogaExercise = () => {
           <h2 className="text-xl font-bold text-foreground">Como executar:</h2>
           
           <ol className="space-y-3 list-decimal list-inside text-foreground">
-            {/* 4. Fazemos um map para renderizar os passos dinamicamente */}
             {exercise.steps.map((step: string, index: number) => (
               <li key={index} className="leading-relaxed">
                 {step}

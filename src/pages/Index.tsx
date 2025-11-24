@@ -23,7 +23,7 @@ Nosso aplicativo não substitui um profissional.`,
   return (
     <div className="flex flex-col h-screen bg-background">
 
-      {/* 🔥 Agora com HomeHeader */}
+      {/*  Agora com HomeHeader */}
       <HomeHeader />
 
       <main className="flex-1 overflow-y-auto px-5 py-8 pb-32 space-y-6">
