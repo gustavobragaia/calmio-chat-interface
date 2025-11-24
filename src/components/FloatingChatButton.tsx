@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const FloatingChatButton = () => {
   const navigate = useNavigate();
 
+  
   return (
     <button
       onClick={() => navigate("/chat")}

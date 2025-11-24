@@ -7,6 +7,7 @@ interface EmergencyModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
+
 const EmergencyModal = ({ open, onOpenChange }: EmergencyModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

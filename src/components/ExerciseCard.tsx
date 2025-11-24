@@ -8,6 +8,7 @@ interface ExerciseCardProps {
   onClick?: () => void;
 }
 
+
 const ExerciseCard = ({ icon: Icon, title, duration, onClick }: ExerciseCardProps) => {
   return (
     <Card

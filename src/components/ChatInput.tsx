@@ -8,6 +8,7 @@ type ChatInputProps = {
   disabled?: boolean;
 };
 
+
 const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
   const [message, setMessage] = useState("");
 
