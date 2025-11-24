@@ -20,7 +20,7 @@ const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="bg-calmio-bot-bubble border-none max-w-lg rounded-[30px] p-8 space-y-8"
+        className="bg-calmio-bot-bubble border-none max-w-lg rounded-[30px] p-8 space-y-8 "
       >
         {/* Título */}
         <div className="flex items-center justify-between">

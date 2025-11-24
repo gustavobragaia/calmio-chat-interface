@@ -17,10 +17,8 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // pega todos os usuários cadastrados
     const users: User[] = JSON.parse(localStorage.getItem("calmio_users") || "[]");
 
-    // procura usuário correspondente
     const found = users.find(
       (u) => u.username === username && u.password === password
     );

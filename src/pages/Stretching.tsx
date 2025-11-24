@@ -18,6 +18,7 @@ const Stretching = () => {
     return saved ? parseInt(saved, 10) : INITIAL_TIME;
   });
 
+  // Timer play/pause
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
@@ -34,6 +35,7 @@ const Stretching = () => {
     };
   }, [isActive, seconds]);
 
+  // Salva o timer no localStorage
   useEffect(() => {
     localStorage.setItem(timerKey, seconds.toString());
   }, [seconds, timerKey]);

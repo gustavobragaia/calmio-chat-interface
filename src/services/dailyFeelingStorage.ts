@@ -1,8 +1,8 @@
 export type DailyFeeling = {
-  date: string;      // "YYYY-MM-DD"
-  mood: string;      // ex: "Ansioso", "Tranquilo", etc.
-  note?: string;     // opcional: observação curta
-  createdAt: string; // ISO
+  date: string;      
+  mood: string;      
+  note?: string;     
+  createdAt: string; 
 };
 
 const STORAGE_KEY = "calmio:daily-feelings";
@@ -35,7 +35,7 @@ export function getLastDailyFeelingDate(): string | null {
 }
 
 export function saveDailyFeelingForToday(mood: string, note?: string) {
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const today = new Date().toISOString().slice(0, 10); 
   const now = new Date().toISOString();
 
   const all = loadDailyFeelings().filter((f) => f.date !== today);
@@ -48,7 +48,6 @@ export function saveDailyFeelingForToday(mood: string, note?: string) {
   };
 
   all.push(entry);
-  // mais recentes por último ou por primeiro, você que manda; vou deixar ordenado por data:
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
 
   saveDailyFeelings(all);

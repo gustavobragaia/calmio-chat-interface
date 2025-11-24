@@ -4,7 +4,6 @@ import { AuthContext } from "./AuthContext";
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<string | null>(null);
 
-  // Carregar usuário salvo no navegador
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(storedUser);

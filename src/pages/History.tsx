@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getConversations, Conversation } from "@/services/conversationStorage";
 import { getDailyFeelings, DailyFeeling } from "@/services/dailyFeelingStorage";
-import HomeHeader from "@/components/HomeHeader"; // ou outro header que você preferir
+import Header from "@/components/Header"; 
 
 function formatDateTime(iso: string) {
   const d = new Date(iso);
@@ -34,25 +34,23 @@ const History = () => {
 
   const sections = useMemo(() => {
     type Section = {
-      dateKey: string; // "YYYY-MM-DD"
+      dateKey: string; 
       conversations: Conversation[];
       feeling?: DailyFeeling;
     };
 
     const map = new Map<string, Section>();
 
-    // Agrupa conversas por dia (usando updatedAt)
     conversations.forEach((conv) => {
-      const dateKey = conv.updatedAt.slice(0, 10); // YYYY-MM-DD
+      const dateKey = conv.updatedAt.slice(0, 10); 
       if (!map.has(dateKey)) {
         map.set(dateKey, { dateKey, conversations: [] });
       }
       map.get(dateKey)!.conversations.push(conv);
     });
 
-    // Associa sentimentos diários ao mesmo dia
     dailyFeelings.forEach((feeling) => {
-      const dateKey = feeling.date; // já está em "YYYY-MM-DD"
+      const dateKey = feeling.date; 
       if (!map.has(dateKey)) {
         map.set(dateKey, { dateKey, conversations: [], feeling });
       } else {
@@ -60,7 +58,6 @@ const History = () => {
       }
     });
 
-    // Ordena do mais recente para o mais antigo
     return Array.from(map.values()).sort((a, b) =>
       a.dateKey < b.dateKey ? 1 : -1
     );
@@ -68,7 +65,7 @@ const History = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      <HomeHeader onHelpClick={() => {}} />
+      <Header title="Histórico de conversas" onHelpClick={() => {}} />
 
       <main className="px-5 py-6 space-y-4 max-w-2xl mx-auto">
         <h1 className="text-xl font-bold text-foreground mb-2">
@@ -81,7 +78,6 @@ const History = () => {
         ) : (
           <div className="space-y-6">
             {sections.map((section) => {
-              // usa meia-noite só para formatar a data
               const { date } = formatDateTime(section.dateKey + "T00:00:00");
 
               return (

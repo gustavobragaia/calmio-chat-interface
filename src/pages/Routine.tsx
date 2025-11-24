@@ -41,21 +41,16 @@ const Routine = () => {
   const concluidos = habitos.filter((h) => h.concluido).length;
   const porcentagem = total === 0 ? 0 : Math.round((concluidos / total) * 100);
 
-  // --- LÓGICA ATUALIZADA AQUI ---
   const toggleHabito = (id: number) => {
-    // 1. Criamos a nova lista
     const novosHabitos = habitos.map(h => 
       h.id === id ? { ...h, concluido: !h.concluido } : h
     );
     
-    // 2. Atualizamos o estado
     setHabitos(novosHabitos);
 
-    // 3. Verificamos se TUDO foi concluído AGORA
     const todosConcluidos = novosHabitos.every(h => h.concluido);
     const clicadoEstavaIncompleto = !habitos.find(h => h.id === id)?.concluido;
 
-    // Se completou tudo E a ação atual foi de "marcar" (não desmarcar)
     if (todosConcluidos && novosHabitos.length > 0 && clicadoEstavaIncompleto) {
       setShowCelebration(true);
     }
@@ -92,7 +87,6 @@ const Routine = () => {
 
       <main className="px-5 py-6 max-w-2xl mx-auto space-y-8">
         
-        {/* GRÁFICO */}
         <div className="flex flex-col items-center justify-center bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
           <div className="relative w-40 h-40">
             <svg className="w-full h-full transform -rotate-90">
@@ -107,7 +101,6 @@ const Routine = () => {
           <p className="mt-4 text-center text-sm text-muted-foreground">Você completou {concluidos} de {total} hábitos hoje.</p>
         </div>
 
-        {/* LISTA */}
         <div className="space-y-3">
           <h2 className="font-semibold text-lg">Checklist Diário</h2>
           
@@ -135,7 +128,6 @@ const Routine = () => {
           ))}
         </div>
 
-        {/* INPUT */}
         <div className="pt-4 border-t">
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Adicionar novo hábito</h3>
           <div className="flex gap-2">
@@ -154,7 +146,6 @@ const Routine = () => {
 
       </main>
 
-      {/* 1. MODAL DE EXCLUSÃO (PERIGO) */}
       {itemParaDeletar && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl p-6 w-full max-w-xs space-y-5 shadow-2xl animate-in zoom-in-95 duration-200">
@@ -173,16 +164,13 @@ const Routine = () => {
         </div>
       )}
 
-      {/* 2. MODAL DE CELEBRAÇÃO (SUCESSO) - NOVO! 🎉 */}
       {showCelebration && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white rounded-3xl p-8 w-full max-w-xs space-y-6 shadow-2xl animate-in zoom-in-95 duration-300 relative overflow-hidden">
             
-            {/* Efeito de fundo amarelado suave */}
             <div className="absolute top-0 left-0 w-full h-2 bg-[#FACC15]" />
 
             <div className="flex flex-col items-center text-center space-y-4">
-              {/* Ícone animado */}
               <div className="bg-yellow-100 p-4 rounded-full mb-2 animate-bounce">
                 <Trophy className="h-8 w-8 text-[#FACC15]" />
               </div>

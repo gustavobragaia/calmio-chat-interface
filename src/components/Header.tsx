@@ -17,7 +17,6 @@ const HomeHeader = ({ onHelpClick, title }: HomeHeaderProps) => {
 
   const navigate = useNavigate();
 
-  // Atualiza horário a cada 1s
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
