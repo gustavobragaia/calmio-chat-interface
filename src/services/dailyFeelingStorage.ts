@@ -1,4 +1,5 @@
 export type DailyFeeling = {
+  userId: string;
   date: string;      // "YYYY-MM-DD"
   mood: string;      // ex: "Ansioso", "Tranquilo", etc.
   note?: string;     // opcional: observação curta
@@ -24,23 +25,27 @@ function saveDailyFeelings(data: DailyFeeling[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
-function setLastDailyFeelingDate(date: string) {
+function setLastDailyFeelingDate(userId: string, date: string) {
   if (typeof window === "undefined") return;
-  localStorage.setItem(LAST_DATE_KEY, date);
+  localStorage.setItem(`${LAST_DATE_KEY}:${userId}`, date);
 }
 
-export function getLastDailyFeelingDate(): string | null {
+export function getLastDailyFeelingDate(userId: string): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem(LAST_DATE_KEY);
+  return localStorage.getItem(`${LAST_DATE_KEY}:${userId}`);
 }
 
-export function saveDailyFeelingForToday(mood: string, note?: string) {
+export function saveDailyFeelingForToday(userId: string, mood: string, note?: string) {
   const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
   const now = new Date().toISOString();
 
-  const all = loadDailyFeelings().filter((f) => f.date !== today);
+  // remove apenas o registro desse usuário nesse dia, mantendo os de outros usuários
+  const all = loadDailyFeelings().filter(
+    (f) => !(f.userId === userId && f.date === today)
+  );
 
   const entry: DailyFeeling = {
+    userId,
     date: today,
     mood,
     note,
@@ -48,13 +53,13 @@ export function saveDailyFeelingForToday(mood: string, note?: string) {
   };
 
   all.push(entry);
-  // mais recentes por último ou por primeiro, você que manda; vou deixar ordenado por data:
+  // ordena por data decrescente
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
 
   saveDailyFeelings(all);
-  setLastDailyFeelingDate(today);
+  setLastDailyFeelingDate(userId, today);
 }
 
-export function getDailyFeelings(): DailyFeeling[] {
-  return loadDailyFeelings();
+export function getDailyFeelings(userId: string): DailyFeeling[] {
+  return loadDailyFeelings().filter((f) => f.userId === userId);
 }

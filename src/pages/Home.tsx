@@ -8,15 +8,19 @@ import { TrendingUp, Clock, Activity, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getLastDailyFeelingDate } from "@/services/dailyFeelingStorage";
+import { useAuth } from "@/auth/useAuth";
 
 const Home = () => {
   const navigate = useNavigate();
   const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
   const [feelingModalOpen, setFeelingModalOpen] = useState(false);
 
+  const { user } = useAuth();
+  const username = user ?? "visitante";
+
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
-    const last = getLastDailyFeelingDate();
+    const last = getLastDailyFeelingDate(username);
 
     // Se ainda não registrou o sentimento hoje, abre o modal
     if (last !== today) {

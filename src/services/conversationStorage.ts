@@ -7,6 +7,7 @@ export type StoredMessage = {
 
 export type Conversation = {
   id: string;
+  userId: string;
   createdAt: string;
   updatedAt: string;
   messages: StoredMessage[];
@@ -36,11 +37,13 @@ function saveConversations(conversations: Conversation[]) {
 
 // cria uma nova conversa (podendo já vir com mensagens iniciais)
 export function createConversation(
-  initialMessages: { text: string; isBot: boolean }[] = []
+  initialMessages: { text: string; isBot: boolean }[] = [],
+  userId: string
 ): Conversation {
   const now = new Date().toISOString();
   const conv: Conversation = {
     id: generateId(),
+    userId,
     createdAt: now,
     updatedAt: now,
     messages: initialMessages.map((m) => ({
@@ -97,4 +100,7 @@ export function getConversations(): Conversation[] {
 // pega uma conversa específica pelo id (para reabrir)
 export function getConversationById(id: string): Conversation | undefined {
   return loadConversations().find((c) => c.id === id);
+}
+export function getConversationsByUser(userId: string): Conversation[] {
+  return loadConversations().filter((c) => c.userId === userId);
 }
