@@ -10,7 +10,7 @@ const Stretching = () => {
   const { user } = useAuth();
 
   // Chave única no localStorage para cada usuário
-  const timerKey = `stretching_timer_${user?.id ?? user ?? "guest"}`;
+  const timerKey = `stretching_timer_${user ?? "guest"}`;
 
   const INITIAL_TIME = 10 * 60; // 10 minutos
 
