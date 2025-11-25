@@ -31,6 +31,7 @@ const YogaPoseCard = ({ title, description, completed = false, onClick }: YogaPo
       )}
     </Card>
   );
+  
 };
 
 export default YogaPoseCard;

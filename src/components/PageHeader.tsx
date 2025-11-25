@@ -17,6 +17,7 @@ const PageHeader = ({ title, backPath }: PageHeaderProps) => {
       navigate(-1);
     }
   };
+  
 
   return (
     <header className="flex items-center p-4 sticky top-0 bg-background z-10">

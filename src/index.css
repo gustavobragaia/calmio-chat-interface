@@ -2,13 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
 
 @layer base {
   :root {
-    /* Calmio Design System - Cores suaves e acolhedoras */
     --background: 47 70% 96%; /* #FCF9E8 - Creme claro geral */
     --foreground: 0 0% 20%; /* Cinza escuro para textos */
 
@@ -37,7 +33,7 @@ All colors MUST be HSL.
     --input: 0 0% 100%;
     --ring: 0 0% 10%;
 
-    --radius: 1.875rem; /* 30px - Bordas muito arredondadas */
+    --radius: 1.875rem; 
 
     /* Cores específicas do Calmio */
     --calmio-header: 45 45% 88%; /* #EFE8D6 */

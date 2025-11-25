@@ -6,6 +6,7 @@ interface ChatMessageProps {
   isTyping?: boolean;
 }
 
+
 const ChatMessage = ({ text, isBot = false, isTyping = false }: ChatMessageProps) => {
   return (
     <div

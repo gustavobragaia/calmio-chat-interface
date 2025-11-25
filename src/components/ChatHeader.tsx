@@ -9,6 +9,7 @@ interface HomeHeaderProps {
   onHelpClick?: () => void;
 }
 
+
 const HomeHeader = ({ onHelpClick }: HomeHeaderProps) => {
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);

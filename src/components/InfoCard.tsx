@@ -9,6 +9,7 @@ interface InfoCardProps {
   className?: string;
 }
 
+
 const InfoCard = ({ icon: Icon, title, subtitle, onClick }: InfoCardProps) => {
   return (
     <Card

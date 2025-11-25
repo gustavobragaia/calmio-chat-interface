@@ -11,6 +11,7 @@ interface DailyFeelingModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
+
 const emojis = ["😣", "🙁", "😐", "🙂", "😄"];
 
 const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
