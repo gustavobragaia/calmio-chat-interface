@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getConversations, Conversation } from "@/services/conversationStorage";
+import { getConversationsByUser, Conversation } from "@/services/conversationStorage";
 import { getDailyFeelings, DailyFeeling } from "@/services/dailyFeelingStorage";
 import Header from "@/components/Header"; 
+
+import { useAuth } from "@/auth/useAuth";
 
 function formatDateTime(iso: string) {
   const d = new Date(iso);
@@ -22,15 +24,17 @@ const History = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [dailyFeelings, setDailyFeelings] = useState<DailyFeeling[]>([]);
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const username = user ?? "visitante";
   const [expandedDateKey, setExpandedDateKey] = useState<string | null>(null);
 
   useEffect(() => {
-    const convs = getConversations();
+    const convs = getConversationsByUser(username);
     setConversations(convs);
 
-    const feelings = getDailyFeelings();
+    const feelings = getDailyFeelings(username);
     setDailyFeelings(feelings);
-  }, []);
+  }, [username]);
 
   const sections = useMemo(() => {
     type Section = {

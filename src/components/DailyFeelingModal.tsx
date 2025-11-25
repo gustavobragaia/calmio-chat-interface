@@ -3,8 +3,9 @@ import { X, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import { saveDailyFeelingForToday } from "@/services/dailyFeelingStorage";
+import { useEffect, useState } from "react";
+import { getLastDailyFeelingDate, saveDailyFeelingForToday } from "@/services/dailyFeelingStorage";
+import { useAuth } from "@/auth/useAuth";
 
 interface DailyFeelingModalProps {
   open: boolean;
@@ -15,8 +16,21 @@ interface DailyFeelingModalProps {
 const emojis = ["😣", "🙁", "😐", "🙂", "😄"];
 
 const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
+  const { user } = useAuth();
+  const username = user ?? "visitante";
   const [feeling, setFeeling] = useState([2]);
   const [thoughts, setThoughts] = useState("");
+
+  useEffect(() => {
+    if (!open) return;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const last = getLastDailyFeelingDate(username);
+
+    if (last === today) {
+      onOpenChange(false);
+    }
+  }, [open, username, onOpenChange]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -84,7 +98,7 @@ const DailyFeelingModal = ({ open, onOpenChange }: DailyFeelingModalProps) => {
           className="w-full bg-calmio-chat-yellow hover:bg-calmio-chat-yellow/90 text-foreground rounded-full h-12 font-semibold"
           onClick={() => {
             const mood = emojis[feeling[0]] ?? "😐";
-            saveDailyFeelingForToday(mood, thoughts.trim() || undefined);
+            saveDailyFeelingForToday(username, mood, thoughts.trim() || undefined);
             onOpenChange(false);
           }}
         >

@@ -59,7 +59,7 @@ Nosso aplicativo não substitui um profissional.`,
     ];
 
     setMessages(initialMessages);
-    const conv = createConversation(initialMessages);
+    const conv = createConversation(initialMessages, username);
     setConversationId(conv.id);
   }, [searchParams, username]);
 
